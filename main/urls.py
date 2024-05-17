@@ -5,6 +5,4 @@ from main.apps import MainConfig
 app_name = MainConfig.name
 
 
-urlpatterns = [
-    path('', index)
-]
+urlpatterns = [path("", index)]

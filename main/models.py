@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, connection
 
 NULLABLE = {"null": True, "blank": True}
 
@@ -9,10 +9,12 @@ class Category(models.Model):
         verbose_name="Наименование",
         help_text="Введите наименование категории",
     )
-    descr = models.CharField(max_length=500, verbose_name="Описание", **NULLABLE,)
+    descr = models.CharField(
+        max_length=500,
+        verbose_name="Описание",
+        **NULLABLE,
+    )
 
-    def __str__(self):
-        return f"{self.category_name}"
 
     class Meta:
         verbose_name = "Категория"
@@ -22,15 +24,30 @@ class Category(models.Model):
         ]
 
 
+    @classmethod
+    def truncate_table_restart_id(cls):
+        """ Метод очистки таблицы со сбросом автоинкремента счетчика
+        Спасибо, Владислав Печеневский"""
+        with connection.cursor() as cursor:
+            cursor.execute(f'TRUNCATE TABLE {cls._meta.db_table} RESTART IDENTITY CASCADE')
+
+    def __str__(self):
+        return f"{self.category_name}"
+
 class Product(models.Model):
     product_name = models.CharField(
         max_length=100,
         verbose_name="Наименование",
         help_text="Введите наименование продукта",
     )
-    descr = models.CharField(max_length=500, verbose_name="Описание",)
+    descr = models.CharField(
+        max_length=500,
+        verbose_name="Описание",
+    )
     preview = models.ImageField(
-        upload_to="main/products/", verbose_name="Изображение", **NULLABLE,
+        upload_to="main/products/",
+        verbose_name="Изображение",
+        **NULLABLE,
     )
     category = models.ForeignKey(
         "Category",
@@ -40,10 +57,15 @@ class Product(models.Model):
         blank=True,
         related_name="products",
     )
-    price = models.IntegerField(verbose_name="Цена за покупку",)
-    created_at = models.DateTimeField(verbose_name="Дата создания",)
-    updated_at = models.DateTimeField(verbose_name="Дата последнего изменения",)
-
+    price = models.IntegerField(
+        verbose_name="Цена за покупку",
+    )
+    created_at = models.DateTimeField(
+        verbose_name="Дата создания",
+    )
+    updated_at = models.DateTimeField(
+        verbose_name="Дата последнего изменения",
+    )
 
     def __str__(self):
         return f"{self.product_name} {self.price}"

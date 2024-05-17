@@ -1,0 +1,1 @@
+[{"model": "main.category", "pk": 1, "fields": {"category_name": "Напитки", "descr": "Горячие и холодные напитки"}}, {"model": "main.category", "pk": 2, "fields": {"category_name": "Кондитерка", "descr": "Кондитерские изделия и выпечка"}}, {"model": "main.category", "pk": 3, "fields": {"category_name": "Молочка", "descr": "Молочные изделия"}}]
