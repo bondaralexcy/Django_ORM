@@ -8,39 +8,78 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category_name', models.CharField(max_length=100, verbose_name='Наименование')),
-                ('descr', models.CharField(max_length=500, verbose_name='Описание')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "category_name",
+                    models.CharField(max_length=100, verbose_name="Наименование"),
+                ),
+                ("descr", models.CharField(max_length=500, verbose_name="Описание")),
             ],
             options={
-                'verbose_name': 'категория',
-                'verbose_name_plural': 'категории',
-                'ordering': ('category_name',),
+                "verbose_name": "категория",
+                "verbose_name_plural": "категории",
+                "ordering": ("category_name",),
             },
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product_name', models.CharField(max_length=100, verbose_name='Наименование')),
-                ('descr', models.CharField(max_length=500, verbose_name='Описание')),
-                ('preview', models.ImageField(blank=True, null=True, upload_to='products/', verbose_name='Изображение')),
-                ('price', models.IntegerField(verbose_name='Цена за покупку')),
-                ('created_at', models.DateTimeField(verbose_name='Дата создания ')),
-                ('updated_at', models.DateTimeField(verbose_name='Дата последнего изменения')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='main.category', verbose_name='Категория')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "product_name",
+                    models.CharField(max_length=100, verbose_name="Наименование"),
+                ),
+                ("descr", models.CharField(max_length=500, verbose_name="Описание")),
+                (
+                    "preview",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="products/",
+                        verbose_name="Изображение",
+                    ),
+                ),
+                ("price", models.IntegerField(verbose_name="Цена за покупку")),
+                ("created_at", models.DateTimeField(verbose_name="Дата создания ")),
+                (
+                    "updated_at",
+                    models.DateTimeField(verbose_name="Дата последнего изменения"),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="main.category",
+                        verbose_name="Категория",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'продукт',
-                'verbose_name_plural': 'продукты',
-                'ordering': ('product_name',),
+                "verbose_name": "продукт",
+                "verbose_name_plural": "продукты",
+                "ordering": ("product_name",),
             },
         ),
     ]
